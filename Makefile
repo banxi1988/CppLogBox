@@ -1,6 +1,9 @@
 CC=clang++
 CFLAGS=-std=c++14
 
+main: main.o LogLevel.o Utils.o BaseDestination.o ConsoleDestination.o LogBox.o
+	$(CC) ${CFLAGS} -o main  main.o LogLevel.o Utils.o BaseDestination.o ConsoleDestination.o LogBox.o
+
 LogLevel.o : LogLevel.cpp
 	$(CC) ${CFLAGS} -c LogLevel.cpp 
 
@@ -19,8 +22,6 @@ LogBox.o : LogBox.cpp
 main.o : main.cpp
 	$(CC) ${CFLAGS} -c main.cpp 
 
-main: main.o LogLevel.o Utils.o BaseDestination.o ConsoleDestination.o LogBox.o
-	$(CC) ${CFLAGS} -o main  main.o LogLevel.o Utils.o BaseDestination.o ConsoleDestination.o LogBox.o
 
 .PHONY: clean
 clean:
