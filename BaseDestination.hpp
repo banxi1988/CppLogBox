@@ -20,7 +20,7 @@ namespace logbox{
 
   class BaseDestination{
   public:
-    string format = "%DT%d [%L][%t] %C.%F:%l - %M";
+    string format = "%DT%d [%L][%t] %N:%C.%F:%l - %M";
 
      virtual string send(LogLevel level, string message, uint64_t threadId, string filename, string className, string methodName, int lineNumber) const{
 //       std::cout << "BaseDestionation send is called" << std::endl;
@@ -51,7 +51,7 @@ namespace logbox{
             ss << std::to_string(threadId);
             break;
           case 'N':
-            ss << filename;
+            ss << basename(filename);
             break;
           case 'C':
             ss << className;
@@ -60,7 +60,7 @@ namespace logbox{
             ss << methodName;
             break;
           case 'l':
-            ss << std::to_string(lineNumber);
+            ss << lineNumber;
             break;
           case 'D':
             ss << formatDate(normalizeDateFormat(remainPhrase));

@@ -49,5 +49,10 @@ namespace logbox{
     ss << std::this_thread::get_id();
     return std::stoll(ss.str());
   }
+
+  inline std::string basename(const std::string& filepath){
+    auto parts = split(filepath, '/');
+    return parts[parts.size() - 1];
+  }
 }
 #endif /* Utils_hpp */

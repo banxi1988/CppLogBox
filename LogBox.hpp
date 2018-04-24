@@ -22,14 +22,14 @@ namespace logbox {
   private:
     std::vector<std::shared_ptr<BaseDestination>> destinations;
 
-    void dispatchSend(LogLevel level, std::string message, std::string filename, int lineNumber ) const{
+    void dispatchSend(LogLevel level, std::string message, string filename, string functionName, int lineNumber ) const{
       if(destinations.empty()){
         return;
       }
       auto threadId = currentThreadId();
       for(const auto& destPtr: destinations){
         auto dest = destPtr.get();
-        dest->send(level, message, threadId, filename, "", "", lineNumber);
+        dest->send(level, message, threadId, filename, "", functionName, lineNumber);
       }
     }
   public:
@@ -38,8 +38,8 @@ namespace logbox {
       return true;
     }
 
-    void info(std::string message,string filename = __FILE__, int lineNumber = __LINE__) const{
-      this->dispatchSend(LogLevel::info, message, filename, lineNumber);
+    void info(std::string message,string functionName = "", string filename = __FILE__,  int lineNumber = __LINE__) const{
+      this->dispatchSend(LogLevel::info, message, filename, functionName, lineNumber);
     }
   };
   extern LogBox logbox;
