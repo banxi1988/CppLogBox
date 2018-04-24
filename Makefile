@@ -9,13 +9,6 @@ $(shell mkdir -p ${OUTPUT_DIR} )
 ${BIN}: ${OBJS}
 	$(CXX) ${CXXFLAGS} ${OBJS} -o ${OUTPUT_DIR}/${BIN}
 
-LogLevel.o : LogLevel.cpp
-Utils.o : Utils.cpp
-BaseDestination.o : BaseDestination.cpp
-ConsoleDestination.o : ConsoleDestination.cpp
-LogBox.o : LogBox.cpp
-main.o : main.cpp
-
 .PHONY: clean
 clean:
 	${RM} *.o
