@@ -7,6 +7,7 @@
 //
 
 #include "Utils.hpp"
+#include <ctime>
 
 namespace logbox{
   using std::vector;
@@ -26,8 +27,8 @@ namespace logbox{
   string  formatDate(string dateFormat){
     auto now = time(nullptr);
     auto tm = *localtime(&now);
-    stringstream ss;
-    ss <<  std::put_time(&tm, dateFormat.c_str());
-    return  ss.str();
+    char buffer[64];
+    strftime(buffer, 64, dateFormat.c_str(), &tm);
+    return string(buffer);
   }
 }

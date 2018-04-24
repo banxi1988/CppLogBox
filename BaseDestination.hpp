@@ -20,14 +20,14 @@ namespace logbox{
 
   class BaseDestination{
   public:
-    string format = "%DHH:mm:ss.SSS%d [%L][%T][%t] %C.%F:%l - %M";
+    string format = "%DT%d [%L][%t] %C.%F:%l - %M";
 
-     virtual string send(LogLevel level, string message,string threadName, long threadId, string filename, string className, string methodName, int lineNumber) const{
+     virtual string send(LogLevel level, string message, uint64_t threadId, string filename, string className, string methodName, int lineNumber) const{
 //       std::cout << "BaseDestionation send is called" << std::endl;
-      return this->formatMessage(this->format, level, message, threadName, threadId, filename, className, methodName, lineNumber);
+      return this->formatMessage(this->format, level, message, threadId, filename, className, methodName, lineNumber);
     }
 
-     string formatMessage(string format,LogLevel level,string message,string threadName, long threadId, string filename, string className, string methodName, int lineNumber) const{
+     string formatMessage(string format,LogLevel level,string message, uint64_t threadId, string filename, string className, string methodName, int lineNumber) const{
       std::stringstream ss;
       auto phrases = split(this->format, '%');
 
@@ -47,9 +47,6 @@ namespace logbox{
           case 'm':
             ss << message;
             break;
-          case 'T':
-            ss << threadName;
-            break;
           case 't':
             ss << std::to_string(threadId);
             break;
@@ -66,7 +63,7 @@ namespace logbox{
             ss << std::to_string(lineNumber);
             break;
           case 'D':
-            ss << formatDate(remainPhrase);
+            ss << formatDate(normalizeDateFormat(remainPhrase));
             remainPhrase = "";
             break;
           case 'd':

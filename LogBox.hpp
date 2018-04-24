@@ -11,11 +11,13 @@
 
 #include <memory>
 #include <vector>
+#include <thread>
 #include "BaseDestination.hpp"
 #include "LogLevel.hpp"
 
 namespace logbox {
-  
+  using std::string;
+
   class LogBox{
   private:
     std::vector<std::shared_ptr<BaseDestination>> destinations;
@@ -24,9 +26,10 @@ namespace logbox {
       if(destinations.empty()){
         return;
       }
+      auto threadId = currentThreadId();
       for(const auto& destPtr: destinations){
         auto dest = destPtr.get();
-        dest->send(level, message, "", 0, filename, "", "", lineNumber);
+        dest->send(level, message, threadId, filename, "", "", lineNumber);
       }
     }
   public:

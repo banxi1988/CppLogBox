@@ -16,6 +16,7 @@
 #include <sstream>
 #include <iomanip>
 #include <ctime>
+#include <thread>
 
 
 namespace logbox{
@@ -23,5 +24,30 @@ namespace logbox{
   std::vector<std::string> split(std::string str, char sep);
 
   std::string  formatDate(std::string dateFormat);
+
+  /**
+   * 将类似 H:m:s 这样的格式字符串转成 %H:%m:%s 即在每一个字母前面加上 %号。
+   **/
+  inline std::string normalizeDateFormat(const std::string& dateFormat){
+    char  buffer  [80];
+    int bufferIndex = 0;
+    for( int i = 0;i < dateFormat.length() && bufferIndex < 78; i++){
+      char ch = dateFormat.at(i);
+      if(isalpha(ch)){
+        buffer[bufferIndex] = '%';
+        bufferIndex++;
+      }
+      buffer[bufferIndex] = ch;
+      bufferIndex++;
+    }
+    buffer[bufferIndex] = '\0';
+    return std::string(buffer);
+  }
+
+  inline uint64_t currentThreadId(){
+    std::stringstream ss;
+    ss << std::this_thread::get_id();
+    return std::stoll(ss.str());
+  }
 }
 #endif /* Utils_hpp */

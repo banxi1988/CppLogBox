@@ -16,9 +16,9 @@ namespace logbox {
   class ConsoleDestination : public BaseDestination{
 
   public:
-    virtual string send(LogLevel level, string message,string threadName, long threadId, string filename, string className, string methodName, int lineNumber) const override{
+    virtual string send(LogLevel level, string message, uint64_t threadId, string filename, string className, string methodName, int lineNumber) const override{
 //      std::cout << "ConsoleDestionation send is called" << std::endl;
-      auto msg = BaseDestination::send(level, message, threadName, threadId, filename, className, methodName, lineNumber);
+      auto msg = BaseDestination::send(level, message,threadId, filename, className, methodName, lineNumber);
       std::cout << msg << std::endl;
       return msg;
     }
