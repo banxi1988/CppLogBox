@@ -15,13 +15,12 @@
 #include "LogLevel.hpp"
 
 namespace logbox {
-  using namespace std;
   
   class LogBox{
   private:
-    vector<BaseDestination> destinations;
+    std::vector<BaseDestination> destinations;
 
-    void dispatchSend(LogLevel level, string message, string filename, int lineNumber ) const{
+    void dispatchSend(LogLevel level, std::string message, std::string filename, int lineNumber ) const{
       if(destinations.empty()){
         return;
       }
@@ -35,11 +34,11 @@ namespace logbox {
       return true;
     }
 
-    void info(string message,string filename = __FILE__, int lineNumber = __LINE__) const{
+    void info(std::string message,string filename = __FILE__, int lineNumber = __LINE__) const{
       this->dispatchSend(LogLevel::info, message, filename, lineNumber);
     }
   };
-  LogBox logbox;
+//  LogBox logbox;
 }
 
 #endif /* LobBox_hpp */

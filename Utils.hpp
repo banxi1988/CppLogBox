@@ -6,6 +6,8 @@
 //  Copyright © 2018 Haizhen Lee. All rights reserved.
 //
 
+#pragma once
+
 #ifndef Utils_hpp
 #define Utils_hpp
 
@@ -15,24 +17,11 @@
 #include <iomanip>
 #include <ctime>
 
-namespace logbox{
-  using namespace std;
-  vector<string> split(string str, char sep){
-    vector<string> tokens;
-    string token;
-    istringstream tokenStream(str);
-    while(getline(tokenStream, token, sep)){
-      tokens.push_back(token);
-    }
-    return tokens;
-  }
 
-  string  formatDate(string dateFormat){
-    auto now = time(nullptr);
-    auto tm = *localtime(&now);
-    stringstream ss;
-    ss <<  put_time(&tm, dateFormat.c_str());
-    return  ss.str();
-  }
+namespace logbox{
+
+  std::vector<std::string> split(std::string str, char sep);
+
+  std::string  formatDate(std::string dateFormat);
 }
 #endif /* Utils_hpp */
