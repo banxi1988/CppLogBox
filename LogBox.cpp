@@ -8,3 +8,6 @@
 
 #include "LogBox.hpp"
 
+namespace logbox {
+    LogBox logbox;
+}
