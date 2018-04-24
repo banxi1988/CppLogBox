@@ -1,29 +1,23 @@
-CC=clang++
-CFLAGS=-std=c++14
+CXXFLAGS=-std=c++14 -g
+OBJS = main.o LogLevel.o Utils.o BaseDestination.o ConsoleDestination.o LogBox.o
+BIN = main
+OUTPUT_DIR = build
 
-main: main.o LogLevel.o Utils.o BaseDestination.o ConsoleDestination.o LogBox.o
-	$(CC) ${CFLAGS} -o main  main.o LogLevel.o Utils.o BaseDestination.o ConsoleDestination.o LogBox.o
+$(shell mkdir -p ${OUTPUT_DIR} )
+
+.PHONY: ${BIN}
+${BIN}: ${OBJS}
+	$(CXX) ${CXXFLAGS} ${OBJS} -o ${OUTPUT_DIR}/${BIN}
 
 LogLevel.o : LogLevel.cpp
-	$(CC) ${CFLAGS} -c LogLevel.cpp 
-
 Utils.o : Utils.cpp
-	$(CC) ${CFLAGS} -c Utils.cpp 
-
 BaseDestination.o : BaseDestination.cpp
-	$(CC) ${CFLAGS} -c BaseDestination.cpp 
-
 ConsoleDestination.o : ConsoleDestination.cpp
-	$(CC) ${CFLAGS} -c ConsoleDestination.cpp 
-
 LogBox.o : LogBox.cpp
-	$(CC) ${CFLAGS} -c LogBox.cpp 
-
 main.o : main.cpp
-	$(CC) ${CFLAGS} -c main.cpp 
-
 
 .PHONY: clean
 clean:
-	rm *.o
+	${RM} *.o
+	${RM} -r ${OUTPUT_DIR}
 
