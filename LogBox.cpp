@@ -9,5 +9,5 @@
 #include "LogBox.hpp"
 
 namespace logbox {
-    LogBox logbox;
+    LogBox log;
 }

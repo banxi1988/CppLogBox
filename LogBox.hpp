@@ -42,7 +42,7 @@ namespace logbox {
       this->dispatchSend(LogLevel::info, message, filename, functionName, lineNumber);
     }
   };
-  extern LogBox logbox;
+  extern LogBox log;
 }
 
 #endif /* LobBox_hpp */

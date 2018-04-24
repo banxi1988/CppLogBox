@@ -13,9 +13,9 @@
 int main(int argc, const char * argv[]) {
   // insert code here...
   std::cout << "Hello, World!\n";
-  const logbox::ConsoleDestination consoleDest;
-  using logbox::logbox;
-  logbox.addDestination(std::make_shared<logbox::ConsoleDestination>(consoleDest));
-  logbox.info("some thing happened");
+  using logbox::log;
+  const logbox::ConsoleDestination consoleDest ;
+  log.addDestination(std::make_shared<logbox::ConsoleDestination>(consoleDest));
+  log.info("some thing happened");
   return 0;
 }
