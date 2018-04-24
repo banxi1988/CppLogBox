@@ -10,6 +10,7 @@
 #define BaseDestination_hpp
 
 #include <string>
+#include <iostream>
 #include <sstream>
 #include "LogLevel.hpp"
 #include "Utils.hpp"
@@ -22,6 +23,7 @@ namespace logbox{
     string format = "%DHH:mm:ss.SSS%d [%L][%T][%t] %C.%F:%l - %M";
 
      virtual string send(LogLevel level, string message,string threadName, long threadId, string filename, string className, string methodName, int lineNumber) const{
+//       std::cout << "BaseDestionation send is called" << std::endl;
       return this->formatMessage(this->format, level, message, threadName, threadId, filename, className, methodName, lineNumber);
     }
 

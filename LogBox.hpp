@@ -18,19 +18,20 @@ namespace logbox {
   
   class LogBox{
   private:
-    std::vector<BaseDestination> destinations;
+    std::vector<std::shared_ptr<BaseDestination>> destinations;
 
     void dispatchSend(LogLevel level, std::string message, std::string filename, int lineNumber ) const{
       if(destinations.empty()){
         return;
       }
-      for(const auto& dest: destinations){
-        dest.send(level, message, "", 0, filename, "", "", lineNumber);
+      for(const auto& destPtr: destinations){
+        auto dest = destPtr.get();
+        dest->send(level, message, "", 0, filename, "", "", lineNumber);
       }
     }
   public:
-    bool addDestination(const BaseDestination& destination){
-      destinations.push_back(destination);
+    bool addDestination(const std::shared_ptr<BaseDestination> ptr){
+      destinations.push_back(ptr);
       return true;
     }
 
